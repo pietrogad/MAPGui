@@ -6,6 +6,7 @@ import javafx.scene.control.RadioButton;
 
 import java.io.IOException;
 
+import static com.example.clientmapgui.ControllerConnServer.client;
 import static com.example.clientmapgui.ControllerControllo.switchScene;
 
 public class ControllerMenu {
@@ -19,6 +20,7 @@ public class ControllerMenu {
     }
 
     public void caricaDaFile (ActionEvent event) throws IOException {
+        client.getOut().writeObject(1);
         switchScene(event,"CaricaDaFile");
     }
 }

@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class Client {
 
@@ -46,11 +47,11 @@ public class Client {
         }while(flag==false);
     }
 
-    void loadDedrogramFromFileOnServer() throws IOException, ClassNotFoundException {
+    void loadDedrogramFromFileOnServer(String file) throws IOException, ClassNotFoundException {
         System.out.println("Inserire il nome dell'archivio (comprensivo di estensione):");
-        String fileName=Keyboard.readString();
+        String fileName = file;
 
-        out.writeObject(1);
+        //out.writeObject(1);
         out.writeObject(fileName);
         String risposta= (String) (in.readObject());
         if(risposta.equals("OK"))
@@ -77,5 +78,11 @@ public class Client {
         }
         else
             System.out.println(risposta); // stampo il messaggio di errore
+    }
+
+    public ArrayList<String> getFilename () throws IOException, ClassNotFoundException {
+        Object object = in.readObject();
+        ArrayList<String> lista = (ArrayList<String>) object;
+        return lista;
     }
 }
