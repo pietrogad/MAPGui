@@ -33,18 +33,12 @@ public class Client {
         return out;
     }
 
-    public void loadDataOnServer(String s) throws IOException, ClassNotFoundException {
-        boolean flag=false;
-        do {
-            String tableName = s;
-            out.writeObject(0);
-            out.writeObject(tableName);
-            String risposta=(String)(in.readObject());
-            if(risposta.equals("OK"))
-                flag=true;
-            else System.out.println(risposta);
-
-        }while(flag==false);
+    public String loadDataOnServer(String s) throws IOException, ClassNotFoundException {
+        String tableName = s;
+        out.writeObject(0);
+        out.writeObject(tableName);
+        String risposta=(String)(in.readObject());
+        return risposta;
     }
 
     void loadDedrogramFromFileOnServer(String file) throws IOException, ClassNotFoundException {
