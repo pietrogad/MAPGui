@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.clientmapgui.ControllerCaricaDaDatabase">
+   <children>
+      <Label alignment="CENTER" layoutX="219.0" layoutY="14.0" text="Inserire i seguenti campi">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <Label layoutX="141.0" layoutY="66.0" prefHeight="20.0" text="Profondità del dendogramma:" />
+      <Slider fx:id="sliderprofondita" blockIncrement="1.0" layoutX="320.0" layoutY="69.0" minorTickCount="10" onDragDetected="#mostrareProfondita" showTickLabels="true" />
+      <Label fx:id="labelprofondita" layoutX="477.0" layoutY="68.0" text="Label" />
+      <Label layoutX="141.0" layoutY="106.0" text="Inserire il tipo di distanza:" />
+      <RadioButton fx:id="radiosingle" layoutX="320.0" layoutY="106.0" mnemonicParsing="false" onAction="#setRadioaverage" text="Single-Link" />
+      <RadioButton fx:id="radioaverage" layoutX="417.0" layoutY="106.0" mnemonicParsing="false" onAction="#setRadiosingle" text="Average-Link" />
+      <Label layoutX="141.0" layoutY="144.0" text="Nome del file in cui salvare (.dat):" />
+      <TextField fx:id="namefilefield" layoutX="325.0" layoutY="140.0" />
+      <Button fx:id="sendbtn" layoutX="275.0" layoutY="188.0" mnemonicParsing="false" onAction="#send" text="Invia" />
+      <Label fx:id="filesave" alignment="CENTER" layoutX="222.0" layoutY="286.0" prefHeight="17.0" prefWidth="187.0" textAlignment="CENTER" textFill="#4aa84a" />
+   </children>
+</Pane>

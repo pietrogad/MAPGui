@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.clientmapgui.ControllerConnServer">
+   <children>
+      <Label alignment="CENTER" layoutX="150.0" layoutY="15.0" prefHeight="30.0" prefWidth="300.0" text="Benvenuto" textAlignment="CENTER">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="220.0" layoutY="70.0" prefHeight="17.0" prefWidth="165.0" text="Inserisci IP e Porta del Server" textAlignment="CENTER" />
+      <TextField fx:id="ipfield" layoutX="150.0" layoutY="120.0" prefHeight="20.0" prefWidth="150.0" />
+      <TextField fx:id="portfield" layoutX="315.0" layoutY="120.0" prefHeight="20.0" prefWidth="150.0" />
+      <Label alignment="CENTER" layoutX="190.0" layoutY="100.0" prefHeight="17.0" prefWidth="61.0" text="IP" textAlignment="CENTER" />
+      <Label alignment="CENTER" layoutX="355.0" layoutY="100.0" prefHeight="17.0" prefWidth="61.0" text="Porta" textAlignment="CENTER" />
+      <Button fx:id="connectServer" layoutX="273.0" layoutY="170.0" mnemonicParsing="false" onAction="#connectServer" text="Connettiti" />
+      <Pane prefHeight="50.0" prefWidth="50.0" />
+   </children>
+</Pane>

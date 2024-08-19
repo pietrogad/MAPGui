@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.clientmapgui.ControllerMenu">
+   <children>
+      <Label alignment="CENTER" layoutX="225.0" layoutY="20.0" prefHeight="20.0" prefWidth="150.0" text="Inserisci la tua scelta" textAlignment="CENTER" />
+      <RadioButton fx:id="loaddatabase" alignment="BOTTOM_LEFT" layoutX="225.0" layoutY="60.0" mnemonicParsing="false" onAction="#caricaDaDatabase" prefHeight="20.0" prefWidth="150.0" text="Carica da database" />
+      <RadioButton fx:id="loadfile" alignment="CENTER_LEFT" layoutX="225.0" layoutY="100.0" mnemonicParsing="false" onAction="#caricaDaFile" prefHeight="20.0" prefWidth="150.0" text="Carica da file" />
+   </children>
+</Pane>
