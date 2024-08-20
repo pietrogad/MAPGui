@@ -93,9 +93,15 @@ public class ControllerCaricaDaDatabase implements Initializable {
     }
 
     public void mostraMessErrore(String messErrore){
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+        pause.setOnFinished(event -> {
+            filesave.setTextFill(Color.GREEN);
+            filesave.setVisible(false);
+        });
         filesave.setText(messErrore);
         filesave.setTextFill(Color.RED);
         filesave.setVisible(true);
+        pause.play();
     }
 
     public void eseguiMine (int depth, int scelta, String filename){
@@ -128,6 +134,7 @@ public class ControllerCaricaDaDatabase implements Initializable {
         chkbutton.setDisable(true);
     }
     public void controllaFile() throws IOException, ClassNotFoundException {
+
         cont++;
         String filename = namefilefield.getText();
         client.getOut().writeObject(filename);
@@ -138,10 +145,9 @@ public class ControllerCaricaDaDatabase implements Initializable {
             chkbutton.setDisable(true);
             namefilefield.setDisable(true);
         }else {
-            filesave.setText("File gia esistente");
-            filesave.setTextFill(Color.RED);
-            filesave.setVisible(true);
+            mostraMessErrore(message);
             sentinella = false;
+
         }
     }
 
