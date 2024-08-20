@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -30,6 +31,16 @@ public class ControllerCaricaDaDatabase implements Initializable {
     private TextField namefilefield;
     @FXML
     private Label filesave;
+    @FXML
+    private TextArea dataarea;
+    @FXML
+    private Button sendbtn;
+    @FXML
+    private Button chkbutton;
+
+    ScrollPane scrollpane;
+    private boolean sentinella = false;
+    private int cont = 0;
 
 
     public void mostrareProfondita (MouseEvent event){
@@ -38,6 +49,7 @@ public class ControllerCaricaDaDatabase implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        sendbtn.setDisable(true);
         labelprofondita.setVisible(false);
         filesave.setVisible(false);
         sliderprofondita.valueProperty().addListener(new ChangeListener<Number>() {
@@ -55,32 +67,81 @@ public class ControllerCaricaDaDatabase implements Initializable {
         radiosingle.setSelected(false);
     }
 
-    public void send (ActionEvent event) {
+    public void send (ActionEvent event) throws IOException, ClassNotFoundException {
         int depth = (int)sliderprofondita.getValue();
         int scelta;
         boolean single = radiosingle.isSelected();
         boolean average = radioaverage.isSelected();
         String filename = namefilefield.getText();
-        if (single){
-            scelta = 1;
-            eseguiMine(depth,scelta,filename);
+        if (cont > 0) {
+            if (sentinella) {
+                if (single){
+                    scelta = 1;
+                    eseguiMine(depth,scelta,filename);
 
-        } else if (average){
-            scelta = 2;
-            eseguiMine(depth,scelta,filename);
+                } else if (average){
+                    scelta = 2;
+                    eseguiMine(depth,scelta,filename);
+                }
+            }else {
+                mostraMessErrore("Il file esiste già");
+            }
+        }else {
+            mostraMessErrore("Controlla l'esistenza del file");
         }
+
+    }
+
+    public void mostraMessErrore(String messErrore){
+        filesave.setText(messErrore);
+        filesave.setTextFill(Color.RED);
+        filesave.setVisible(true);
     }
 
     public void eseguiMine (int depth, int scelta, String filename){
-        PauseTransition tempo = new PauseTransition(Duration.seconds(5));
+        String res = "";
         try {
-            client.mineDedrogramOnServer(depth,scelta,filename);
-            filesave.setText("Il file e' stato salvato correttamente");
+            res = client.mineDedrogramOnServer(depth,scelta,filename);
+            filesave.setText("Il file e' stato salvato correttamente\nProcedere all'altra scheda per visualizzare il risultato");
+            filesave.setTextFill(Color.GREEN);
             filesave.setVisible(true);
-            tempo.setOnFinished( e -> Platform.exit());
-            tempo.play();
+            creaScroller();
+            dataarea.setText(res);
+            spegniComponenti();
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void creaScroller() {
+        scrollpane = new ScrollPane();
+        scrollpane.setContent(dataarea);
+        scrollpane.setLayoutX(579);
+        scrollpane.setLayoutY(136);
+    }
+    public void spegniComponenti(){
+        sliderprofondita.setDisable(true);
+        radioaverage.setDisable(true);
+        radiosingle.setDisable(true);
+        namefilefield.setDisable(true);
+        sendbtn.setDisable(true);
+        chkbutton.setDisable(true);
+    }
+    public void controllaFile() throws IOException, ClassNotFoundException {
+        cont++;
+        String filename = namefilefield.getText();
+        client.getOut().writeObject(filename);
+        String message = (String) client.getIn().readObject();
+        if (message.equals("File non esiste")) {
+            sendbtn.setDisable(false);
+            sentinella = true;
+            chkbutton.setDisable(true);
+            namefilefield.setDisable(true);
+        }else {
+            filesave.setText("File gia esistente");
+            filesave.setTextFill(Color.RED);
+            filesave.setVisible(true);
+            sentinella = false;
         }
     }
 

@@ -16,6 +16,7 @@ public class ControllerMenu {
     RadioButton loadfile;
 
     public void caricaDaDatabase (ActionEvent event) throws IOException {
+        client.getOut().writeObject(2);
         switchScene(event,"CaricaDaDatabase");
     }
 

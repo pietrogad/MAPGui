@@ -54,10 +54,9 @@ public class Client {
             System.out.println(risposta); // stampo il messaggio di errore
     }
 
-    void mineDedrogramOnServer(int profondita , int scelta , String nomefile) throws IOException, ClassNotFoundException {
-
-
-        out.writeObject(2);
+    String mineDedrogramOnServer(int profondita , int scelta , String nomefile) throws IOException, ClassNotFoundException {
+        String message = "";
+        //out.writeObject(2);
         int depth = profondita;
         out.writeObject(depth);
         int dType=-1;
@@ -66,12 +65,13 @@ public class Client {
 
         String risposta= (String) (in.readObject());
         if(risposta.equals("OK")) {
-            System.out.println(in.readObject()); // stampo il dendrogramma che il server mi sta inviando
+            message = (String) in.readObject();// stampo il dendrogramma che il server mi sta inviando
             String fileName = nomefile;
             out.writeObject(fileName);
+            return message;
         }
         else
-            System.out.println(risposta); // stampo il messaggio di errore
+            return risposta; // stampo il messaggio di errore
     }
 
     public ArrayList<String> getFilename () throws IOException, ClassNotFoundException {
