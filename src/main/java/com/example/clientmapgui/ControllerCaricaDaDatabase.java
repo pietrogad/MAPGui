@@ -38,7 +38,7 @@ public class ControllerCaricaDaDatabase implements Initializable {
     @FXML
     private Button chkbutton;
 
-    ScrollPane scrollpane;
+    private ScrollPane scrollpane;
     private boolean sentinella = false;
     private int cont = 0;
 
