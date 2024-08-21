@@ -41,6 +41,7 @@ public class ControllerCaricaDaDatabase implements Initializable {
     private ScrollPane scrollpane;
     private boolean sentinella = false;
     private int cont = 0;
+    private final String PATTERN_FILE = "\\b\\w+\\.dat\\b";
 
 
     public void mostrareProfondita (MouseEvent event){
@@ -67,7 +68,7 @@ public class ControllerCaricaDaDatabase implements Initializable {
         radiosingle.setSelected(false);
     }
 
-    public void send (ActionEvent event) throws IOException, ClassNotFoundException {
+    public void send (ActionEvent event){
         int depth = (int)sliderprofondita.getValue();
         int scelta;
         boolean single = radiosingle.isSelected();
@@ -135,19 +136,25 @@ public class ControllerCaricaDaDatabase implements Initializable {
     }
     public void controllaFile() throws IOException, ClassNotFoundException {
 
-        cont++;
         String filename = namefilefield.getText();
-        client.getOut().writeObject(filename);
-        String message = (String) client.getIn().readObject();
-        if (message.equals("File non esiste")) {
-            sendbtn.setDisable(false);
-            sentinella = true;
-            chkbutton.setDisable(true);
-            namefilefield.setDisable(true);
-        }else {
-            mostraMessErrore(message);
-            sentinella = false;
+        System.out.println(filename);
+        if (filename.length()<=10 && filename.matches(PATTERN_FILE)) {
+            cont++;
+            client.getOut().writeObject(filename);
+            String message = (String) client.getIn().readObject();
+            if (message.equals("File non esiste")) {
+                sendbtn.setDisable(false);
+                sentinella = true;
+                chkbutton.setDisable(true);
+                namefilefield.setDisable(true);
+            }else {
+                mostraMessErrore(message);
+                sentinella = false;
 
+            }
+        } else {
+            mostraMessErrore("la lunghezza del nome è maggiore di 10\no non è nel formato corretto (filename.dat)");
+            sentinella = false;
         }
     }
 
