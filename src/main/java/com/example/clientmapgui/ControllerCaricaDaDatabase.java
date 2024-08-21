@@ -112,6 +112,8 @@ public class ControllerCaricaDaDatabase implements Initializable {
         try {
             res = client.mineDedrogramOnServer(depth,scelta,filename);
             mostraMess("Il file e' stato salvato correttamente\nProcedere all'altra scheda per visualizzare il risultato");
+            titlefield.setTextFill(Color.GREEN);
+            titlefield.setText("I dati calcolati sono disponibili nella scheda successiva \u2192");
             creaScroller();
             dataarea.setText(res);
             spegniComponenti();
@@ -139,8 +141,6 @@ public class ControllerCaricaDaDatabase implements Initializable {
         filesave.setText(s);
         filesave.setTextFill(Color.GREEN);
         filesave.setVisible(true);
-        titlefield.setTextFill(Color.GREEN);
-        titlefield.setText("I dati calcolati sono disponibili nella scheda successiva \u2192");
         tempo.setOnFinished( e -> filesave.setVisible(false));
         tempo.play();
     }
@@ -157,6 +157,7 @@ public class ControllerCaricaDaDatabase implements Initializable {
                 sentinella = true;
                 chkbutton.setDisable(true);
                 namefilefield.setDisable(true);
+                mostraMess("il nome file è stato accettato");
             }else {
                 mostraMessErrore(message);
                 sentinella = false;

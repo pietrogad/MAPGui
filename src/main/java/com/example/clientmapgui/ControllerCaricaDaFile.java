@@ -57,6 +57,8 @@ public class ControllerCaricaDaFile implements Initializable {
         try {
             nomefile = listfilename.getSelectionModel().getSelectedItem();
             res = client.loadDedrogramFromFileOnServer(nomefile);
+            titlefield.setTextFill(Color.GREEN);
+            titlefield.setText("Il file " + nomefile + " è stato scelto \u2192");
             creaScroller();
             areadati.setText(res);
             mostraMess("Il file e' stato caricato correttamente\nProcedere all'altra scheda per visualizzare il risultato");
@@ -70,8 +72,6 @@ public class ControllerCaricaDaFile implements Initializable {
         msglabel.setVisible(true);
         msglabel.setText(s);
         msglabel.setTextFill(Color.GREEN);
-        titlefield.setTextFill(Color.GREEN);
-        titlefield.setText("Il file " + nomefile + " è stato scelto \u2192");
         tempo.setOnFinished( e -> msglabel.setVisible(false));
         tempo.play();
     }
