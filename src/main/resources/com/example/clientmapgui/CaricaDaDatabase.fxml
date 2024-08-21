@@ -16,7 +16,7 @@
                        </font>
                    </Label>
                    <Label layoutX="141.0" layoutY="66.0" prefHeight="20.0" text="Profondità del dendogramma:" />
-                   <Slider fx:id="sliderprofondita" blockIncrement="1.0" layoutX="320.0" layoutY="69.0" minorTickCount="10" onDragDetected="#mostrareProfondita" showTickLabels="true" />
+                   <Slider fx:id="sliderprofondita" blockIncrement="1.0" layoutX="320.0" layoutY="69.0" min="1.0" minorTickCount="10" onDragDetected="#mostrareProfondita" />
                    <Label fx:id="labelprofondita" layoutX="477.0" layoutY="68.0" text="Label" />
                    <Label layoutX="141.0" layoutY="106.0" text="Inserire il tipo di distanza:" />
                    <RadioButton fx:id="radiosingle" layoutX="320.0" layoutY="106.0" mnemonicParsing="false" onAction="#setRadioaverage" text="Single-Link" />
