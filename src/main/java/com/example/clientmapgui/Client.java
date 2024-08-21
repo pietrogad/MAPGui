@@ -76,7 +76,7 @@ public class Client {
             return risposta; // stampo il messaggio di errore
     }
 
-    public ArrayList<String> getFilename () throws IOException, ClassNotFoundException {
+    public ArrayList<String> getData() throws IOException, ClassNotFoundException {
         Object object = in.readObject();
         ArrayList<String> lista = (ArrayList<String>) object;
         return lista;

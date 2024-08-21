@@ -2,18 +2,12 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.clientmapgui.ControllerCaricaTabDatabase">
    <children>
-      <Label alignment="CENTER" layoutX="150.0" layoutY="15.0" prefHeight="20.0" prefWidth="300.0" text="Benvenuto" textAlignment="CENTER">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="190.0" layoutY="70.0" prefHeight="20.0" prefWidth="215.0" text="Inserisci il nome della tabella:" textAlignment="CENTER" />
-      <TextField fx:id="tablefield" layoutX="190.0" layoutY="96.0" prefHeight="20.0" prefWidth="215.0" />
-      <Button fx:id="btnDb" layoutX="275.0" layoutY="140.0" mnemonicParsing="false" onAction="#connectDb" text="Invia" />
-      <Label fx:id="errorlabel" alignment="CENTER" layoutX="201.0" layoutY="239.0" prefHeight="17.0" prefWidth="193.0" text="Label" textAlignment="CENTER" textFill="#e40f0f" />
+      <Label fx:id="titlefield" alignment="CENTER" layoutY="20.0" prefHeight="20.0" prefWidth="600.0" text="Scegli una tra le seguenti tabelle:" textAlignment="CENTER" />
+      <ListView fx:id="tablelist" layoutX="200.0" layoutY="57.0" prefHeight="200.0" prefWidth="200.0" />
+      <Button fx:id="sndbtn" layoutX="274.0" layoutY="274.0" mnemonicParsing="false" onAction="#getTable" text="Invia" />
+      <Label fx:id="errorfield" alignment="CENTER" layoutY="330.0" prefHeight="50.0" prefWidth="600.0" text="Label" textAlignment="CENTER" textFill="#dd1717" />
    </children>
 </Pane>

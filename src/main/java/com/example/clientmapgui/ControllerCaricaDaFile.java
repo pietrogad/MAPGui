@@ -39,7 +39,7 @@ public class ControllerCaricaDaFile implements Initializable {
         sendfilebtn.setDisable(true);
         msglabel.setVisible(false);
         try {
-            list = client.getFilename();
+            list = client.getData();
             listfilename.getItems().addAll(list);
             listfilename.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                 @Override
@@ -59,7 +59,7 @@ public class ControllerCaricaDaFile implements Initializable {
             res = client.loadDedrogramFromFileOnServer(nomefile);
             creaScroller();
             areadati.setText(res);
-            mostraMess("Il file e' stato salvato correttamente\nProcedere all'altra scheda per visualizzare il risultato");
+            mostraMess("Il file e' stato caricato correttamente\nProcedere all'altra scheda per visualizzare il risultato");
             spegniComponenti();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -71,7 +71,7 @@ public class ControllerCaricaDaFile implements Initializable {
         msglabel.setText(s);
         msglabel.setTextFill(Color.GREEN);
         titlefield.setTextFill(Color.GREEN);
-        titlefield.setText("Il file " + nomefile + " è stato scelto -->");
+        titlefield.setText("Il file " + nomefile + " è stato scelto \u2192");
         tempo.setOnFinished( e -> msglabel.setVisible(false));
         tempo.play();
     }

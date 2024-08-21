@@ -37,6 +37,8 @@ public class ControllerCaricaDaDatabase implements Initializable {
     private Button sendbtn;
     @FXML
     private Button chkbutton;
+    @FXML
+    private Label titlefield;
 
     private ScrollPane scrollpane;
     private boolean sentinella = false;
@@ -109,9 +111,7 @@ public class ControllerCaricaDaDatabase implements Initializable {
         String res = "";
         try {
             res = client.mineDedrogramOnServer(depth,scelta,filename);
-            filesave.setText("Il file e' stato salvato correttamente\nProcedere all'altra scheda per visualizzare il risultato");
-            filesave.setTextFill(Color.GREEN);
-            filesave.setVisible(true);
+            mostraMess("Il file e' stato salvato correttamente\nProcedere all'altra scheda per visualizzare il risultato");
             creaScroller();
             dataarea.setText(res);
             spegniComponenti();
@@ -133,6 +133,16 @@ public class ControllerCaricaDaDatabase implements Initializable {
         namefilefield.setDisable(true);
         sendbtn.setDisable(true);
         chkbutton.setDisable(true);
+    }
+    public void mostraMess(String s) {
+        PauseTransition tempo = new PauseTransition(Duration.seconds(3));
+        filesave.setText(s);
+        filesave.setTextFill(Color.GREEN);
+        filesave.setVisible(true);
+        titlefield.setTextFill(Color.GREEN);
+        titlefield.setText("I dati calcolati sono disponibili nella scheda successiva \u2192");
+        tempo.setOnFinished( e -> filesave.setVisible(false));
+        tempo.play();
     }
     public void controllaFile() throws IOException, ClassNotFoundException {
 
