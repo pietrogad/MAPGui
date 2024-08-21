@@ -10,7 +10,7 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                   <Label alignment="CENTER" layoutX="219.0" layoutY="14.0" text="Inserire i seguenti campi">
+                   <Label fx:id="titlefield" alignment="CENTER" layoutY="14.0" prefWidth="600.0" text="Inserire i seguenti campi">
                        <font>
                            <Font size="15.0" />
                        </font>
@@ -25,7 +25,7 @@
                    <TextField fx:id="namefilefield" layoutX="325.0" layoutY="140.0" />
                    <Button fx:id="sendbtn" layoutX="275.0" layoutY="188.0" mnemonicParsing="false" onAction="#send" text="Invia" />
                    <Label fx:id="filesave" alignment="CENTER" layoutX="148.0" layoutY="259.0" prefHeight="72.0" prefWidth="306.0" textAlignment="CENTER" textFill="#4aa84a" />
-                  <Button fx:id="chkbutton" layoutX="482.0" layoutY="140.0" mnemonicParsing="false" text="Check" onAction="#controllaFile"/>
+                  <Button fx:id="chkbutton" layoutX="482.0" layoutY="140.0" mnemonicParsing="false" onAction="#controllaFile" text="Check" />
                </children>
         </AnchorPane>
       </content>
