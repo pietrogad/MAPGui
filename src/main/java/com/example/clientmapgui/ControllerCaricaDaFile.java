@@ -1,14 +1,12 @@
 package com.example.clientmapgui;
 
 import javafx.animation.PauseTransition;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
@@ -23,20 +21,30 @@ public class ControllerCaricaDaFile implements Initializable {
     @FXML
     private ListView<String> listfilename;
     @FXML
+    private Label msglabel;
+    @FXML
+    private Button sendfilebtn;
+    @FXML
+    private TextArea areadati;
+    @FXML
     private Label titlefield;
 
+    private ScrollPane scrollpane;
     private ArrayList<String> list;
     private String nomefile;
+    private String res;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        sendfilebtn.setDisable(true);
+        msglabel.setVisible(false);
         try {
             list = client.getFilename();
             listfilename.getItems().addAll(list);
             listfilename.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                    titlefield.setText(listfilename.getSelectionModel().getSelectedItem());
+                    sendfilebtn.setDisable(false);
                 }
             });
         } catch (IOException | ClassNotFoundException e) {
@@ -46,16 +54,36 @@ public class ControllerCaricaDaFile implements Initializable {
     }
 
     public void sendFile (ActionEvent event) throws IOException {
-        PauseTransition tempo = new PauseTransition(Duration.seconds(5));
         try {
-            nomefile = titlefield.getText();
-            client.loadDedrogramFromFileOnServer(nomefile);
-            titlefield.setText("file caricato correttamente");
-            titlefield.setTextFill(Color.GREEN);
-            tempo.setOnFinished( e -> Platform.exit());
-            tempo.play();
+            nomefile = listfilename.getSelectionModel().getSelectedItem();
+            res = client.loadDedrogramFromFileOnServer(nomefile);
+            creaScroller();
+            areadati.setText(res);
+            mostraMess("Il file e' stato salvato correttamente\nProcedere all'altra scheda per visualizzare il risultato");
+            spegniComponenti();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+    public void mostraMess(String s) {
+        PauseTransition tempo = new PauseTransition(Duration.seconds(3));
+        msglabel.setVisible(true);
+        msglabel.setText(s);
+        msglabel.setTextFill(Color.GREEN);
+        titlefield.setTextFill(Color.GREEN);
+        titlefield.setText("Il file " + nomefile + " è stato scelto -->");
+        tempo.setOnFinished( e -> msglabel.setVisible(false));
+        tempo.play();
+    }
+    public void spegniComponenti(){
+        sendfilebtn.setDisable(true);
+        listfilename.setDisable(true);
+    }
+
+    public void creaScroller() {
+        scrollpane = new ScrollPane();
+        scrollpane.setContent(areadati);
+        scrollpane.setLayoutX(579);
+        scrollpane.setLayoutY(136);
     }
 }
