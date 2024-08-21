@@ -41,17 +41,19 @@ public class Client {
         return risposta;
     }
 
-    void loadDedrogramFromFileOnServer(String file) throws IOException, ClassNotFoundException {
-        System.out.println("Inserire il nome dell'archivio (comprensivo di estensione):");
+    String loadDedrogramFromFileOnServer(String file) throws IOException, ClassNotFoundException {
         String fileName = file;
-
+        String message;
         //out.writeObject(1);
         out.writeObject(fileName);
         String risposta= (String) (in.readObject());
-        if(risposta.equals("OK"))
-            System.out.println(in.readObject()); // stampo il dendrogramma che il server mi sta inviando
-        else
-            System.out.println(risposta); // stampo il messaggio di errore
+        if(risposta.equals("OK")){
+            message = (String) in.readObject();// stampo il dendrogramma che il server mi sta inviando
+            return message;
+        }
+        else{
+            return risposta; // stampo il messaggio di errore
+        }
     }
 
     String mineDedrogramOnServer(int profondita , int scelta , String nomefile) throws IOException, ClassNotFoundException {
