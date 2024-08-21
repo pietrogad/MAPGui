@@ -20,26 +20,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        /*
-        //String ip=args[0];
-        String ip="127.0.0.1";
-        //int port = Integer.parseInt(args[1]);
-        int port = 1234;
-        Client client = null;
-        try{
-            client = new Client(ip,port);
-
-            client.loadDataOnServer();
-            int scelta=client.menu();
-            if(scelta==1)
-                client.loadDedrogramFromFileOnServer();
-            else
-                client.mineDedrogramOnServer();
-        }
-        catch (IOException e){
-            System.out.println(e);
-            return;
-        }*/
         launch();
     }
 }
