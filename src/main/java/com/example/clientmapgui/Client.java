@@ -7,6 +7,8 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import static com.example.clientmapgui.ControllerConnServer.client;
+
 public class Client {
 
     /**
@@ -80,5 +82,17 @@ public class Client {
         Object object = in.readObject();
         ArrayList<String> lista = (ArrayList<String>) object;
         return lista;
+    }
+
+    public String createTable(String q1, String q2, String tbName) throws IOException, ClassNotFoundException {
+        String tableName = tbName;
+        String query1 = q1;
+        String query2 = q2;
+        String msg;
+        client.getOut().writeObject(tableName);
+        client.getOut().writeObject(query1);
+        client.getOut().writeObject(query2);
+        msg = (String) client.getIn().readObject();
+        return msg;
     }
 }

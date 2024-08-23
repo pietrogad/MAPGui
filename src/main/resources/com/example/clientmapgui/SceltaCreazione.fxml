@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.clientmapgui.ControllerSceltaCreazione">
+    <children>
+        <TableView fx:id="tabpreview" layoutX="437.0" layoutY="40.0" prefHeight="338.0" prefWidth="163.0">
+            <columns>
+                <TableColumn fx:id="preview" prefWidth="163.0" />
+            </columns>
+        </TableView>
+        <Label alignment="CENTER" layoutX="437.0" layoutY="6.0" prefHeight="17.0" prefWidth="164.0" text="Anteprima colonna" textAlignment="CENTER" />
+        <Label alignment="CENTER" layoutX="32.0" layoutY="140.0" prefHeight="20.0" prefWidth="190.0" text="Inserire elemento nella tabella :" textAlignment="CENTER" />
+        <TextField fx:id="elmtable" layoutX="37.0" layoutY="174.0" prefHeight="25.0" prefWidth="180.0" />
+        <Label fx:id="err" alignment="CENTER" layoutX="222.0" layoutY="151.0" prefHeight="71.0" prefWidth="214.0" text="Label" textAlignment="CENTER" textFill="#ff0505" />
+        <Button fx:id="addelement" layoutX="97.0" layoutY="206.0" mnemonicParsing="false" onAction="#aggDatoColonna" prefHeight="25.0" prefWidth="59.0" text="Inserisci" />
+        <Button fx:id="stop" layoutX="65.0" layoutY="325.0" mnemonicParsing="false" onAction="#sendQuery" text="Termina inserimento" />
+        <Label layoutX="43.0" layoutY="48.0" text="Inserisci il numero di colonne :" />
+        <TextField fx:id="nrocolumn" layoutX="49.0" layoutY="78.0" />
+        <Button fx:id="impostabtn" layoutX="98.0" layoutY="108.0" mnemonicParsing="false" onAction="#setColumn" text="Imposta" />
+        <Button fx:id="btncolumn" layoutX="228.0" layoutY="173.0" mnemonicParsing="false" onAction="#setBtncolumn" text="Button" />
+      <Label alignment="CENTER" layoutX="145.0" layoutY="15.0" prefHeight="17.0" prefWidth="258.0" text="Inserisici i dati della nuova tabella" textAlignment="CENTER" />
+    </children>
+</Pane>

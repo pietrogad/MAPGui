@@ -33,7 +33,7 @@ public class ControllerConnServer implements Initializable {
             if (ip.matches(PATTERN_IP) && portfield.getText().matches(PATTERN_PORT)) {
                 try {
                     client = new Client(ip,port);
-                    switchScene(event, "CaricaTabDatabase");
+                    switchScene(event, "SceltaTabDatabase");
                 } catch (IOException e) {
                     System.out.println(e);
                 }
