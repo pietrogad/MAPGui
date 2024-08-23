@@ -41,9 +41,11 @@ public class ControllerSceltaCreazione implements Initializable {
     TableColumn<Dati,String> preview; //tabella nella sezione inserimento
     @FXML
     TableView<Dati> tabpreview;
+    @FXML
+    Label titlefield;
 
     final int MAX_BOUND = 100000;
-    final String PATTERN_INPUT_DATI = "\\d+(\\.\\d{1,3})?";
+    final String PATTERN_INPUT_DATI = "-?\\d+(\\.\\d+)?";
     final String PATTERN_NUM_COLONNE = "\\d+";
     Boolean sentinella = false;
     private ArrayList<ObservableList<Dati>> valoritab = new ArrayList<>(); //valoritab è un arraylist conententen observablelist che contengono i valori delle colonne
@@ -136,12 +138,12 @@ public class ControllerSceltaCreazione implements Initializable {
     }
 
     public void sendQuery(ActionEvent event) {
-        spegniComponenti();
         Random rand  = new Random();
         int n = rand.nextInt(MAX_BOUND);
         int numRows = valoritab.getFirst().size();
         String msg;
         String tablename = "table" + n;
+        CambiaTitolo(tablename);
         StringBuilder query1 = new StringBuilder("CREATE TABLE IF NOT EXISTS ").append(tablename).append(" (");
         StringBuilder query2 = new StringBuilder("INSERT INTO ").append(tablename).append(" VALUES ");
         for (int i = 0; i < valoritab.size(); i++) {
@@ -174,8 +176,9 @@ public class ControllerSceltaCreazione implements Initializable {
         try {
             msg = client.createTable(query1.toString(),query2.toString(),tablename);
             if (msg.equals("OK")) {
-                client.getOut().writeObject(0);
-                switchScene(event,"menu");
+                /*client.getOut().writeObject(0);
+                switchScene(event,"menu");*/
+                finalizza(event);
             } else {
                 mostraMessErrore(msg);
             }
@@ -194,11 +197,20 @@ public class ControllerSceltaCreazione implements Initializable {
         err.setVisible(true);
         pause.play();
     }
-    public void spegniComponenti() {
-        nrocolumn.setDisable(true);
-        impostabtn.setDisable(true);
-        elmtable.setDisable(true);
-        addelement.setDisable(true);
-        stop.setDisable(true);
+    public void finalizza(ActionEvent event) {
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+        pause.setOnFinished(e -> {
+            try {
+                client.getOut().writeObject(0);
+                switchScene(event,"menu");
+            } catch (IOException ex) {
+                System.out.println(ex);
+            }
+        });
+        pause.play();
+    }
+    public void CambiaTitolo(String s) {
+        titlefield.setTextFill(Color.GREEN);
+        titlefield.setText("Hai creato la tabella: " + s);
     }
 }
