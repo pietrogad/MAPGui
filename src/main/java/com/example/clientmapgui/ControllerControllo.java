@@ -23,5 +23,14 @@ public class ControllerControllo {
         stage.show();
     }
 
+    public static void switchScene(ActionEvent event, String s, String s1) throws IOException {
+        root = new FXMLLoader(Main.class.getResource(s + ".fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root.load(), 600, 400);
+        stage.setScene(scene);
+        stage.setTitle(s1);
+        stage.show();
+    }
+
 
 }

@@ -178,7 +178,7 @@ public class ControllerSceltaCreazione implements Initializable {
             if (msg.equals("OK")) {
                 /*client.getOut().writeObject(0);
                 switchScene(event,"menu");*/
-                finalizza(event);
+                finalizza(event, tablename);
             } else {
                 mostraMessErrore(msg);
             }
@@ -197,12 +197,12 @@ public class ControllerSceltaCreazione implements Initializable {
         err.setVisible(true);
         pause.play();
     }
-    public void finalizza(ActionEvent event) {
+    public void finalizza(ActionEvent event, String s) {
         PauseTransition pause = new PauseTransition(Duration.seconds(3));
         pause.setOnFinished(e -> {
             try {
                 client.getOut().writeObject(0);
-                switchScene(event,"menu");
+                switchScene(event,"menu", s);
             } catch (IOException ex) {
                 System.out.println(ex);
             }
