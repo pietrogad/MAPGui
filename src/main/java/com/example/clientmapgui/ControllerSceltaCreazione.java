@@ -143,7 +143,7 @@ public class ControllerSceltaCreazione implements Initializable {
         int numRows = valoritab.getFirst().size();
         String msg;
         String tablename = "table" + n;
-        CambiaTitolo(tablename);
+        ModificaScena(tablename);
         StringBuilder query1 = new StringBuilder("CREATE TABLE IF NOT EXISTS ").append(tablename).append(" (");
         StringBuilder query2 = new StringBuilder("INSERT INTO ").append(tablename).append(" VALUES ");
         for (int i = 0; i < valoritab.size(); i++) {
@@ -209,8 +209,13 @@ public class ControllerSceltaCreazione implements Initializable {
         });
         pause.play();
     }
-    public void CambiaTitolo(String s) {
+    public void ModificaScena(String s) {
         titlefield.setTextFill(Color.GREEN);
         titlefield.setText("Hai creato la tabella: " + s);
+        nrocolumn.setDisable(true);
+        impostabtn.setDisable(true);
+        elmtable.setDisable(true);
+        addelement.setDisable(true);
+        stop.setDisable(true);
     }
 }
