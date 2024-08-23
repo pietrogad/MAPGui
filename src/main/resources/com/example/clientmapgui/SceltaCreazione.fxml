@@ -7,7 +7,7 @@
     <children>
         <TableView fx:id="tabpreview" layoutX="437.0" layoutY="40.0" prefHeight="338.0" prefWidth="163.0">
             <columns>
-                <TableColumn fx:id="preview" prefWidth="163.0" />
+                <TableColumn fx:id="preview" prefWidth="163.0" sortable="false" />
             </columns>
         </TableView>
         <Label alignment="CENTER" layoutX="437.0" layoutY="6.0" prefHeight="17.0" prefWidth="164.0" text="Anteprima colonna" textAlignment="CENTER" />
