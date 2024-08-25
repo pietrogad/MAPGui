@@ -19,19 +19,37 @@ import static com.example.clientmapgui.ControllerConnServer.client;
 
 
 public class ControllerCaricaTabDatabase implements Initializable {
-    @FXML
-    private Label titlefield;
+    /**
+     * Lista contenente i nomi delle tabelle dei database.
+     */
     @FXML
     private ListView<String> tablelist;
+    /**
+     * bottone che conferma e invia il nome della tabella selezionata.
+     */
     @FXML
     private Button sndbtn;
+    /**
+     * Label contenente il messaggio di errore.
+     */
     @FXML
     private Label errorfield;
-
+    /**
+     * ArrayList contenente il nome delle tabelle.
+     */
     private ArrayList<String>tables;
+    /**
+     * messaggio che il client riceve dal server.
+     */
     private String message;
 
-
+    /**
+     * Metodo che viene eseguito al caricamento della scena
+     * che possiede il controller ControllerCaricaTabDatabase.
+     * Si occupa di recuperare il nome delle tabelle e inserirle all'interno della ListView tablelist.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         sndbtn.setDisable(true);
@@ -49,6 +67,11 @@ public class ControllerCaricaTabDatabase implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Metodo che invia il nome della tabella selezionata al server.
+     * @param event evento che innesca il metodo.
+     */
     public void getTable (ActionEvent event) {
         String tablename = tablelist.getSelectionModel().getSelectedItem();
         try {

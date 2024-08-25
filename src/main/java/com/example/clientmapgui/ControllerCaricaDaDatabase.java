@@ -1,14 +1,9 @@
 package com.example.clientmapgui;
 
 import javafx.animation.PauseTransition;
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
@@ -19,82 +14,129 @@ import java.util.ResourceBundle;
 import static com.example.clientmapgui.ControllerConnServer.client;
 
 public class ControllerCaricaDaDatabase implements Initializable {
+    /**
+     * Slider indicante la profondità da calcolare.
+     */
     @FXML
     private Slider sliderprofondita;
+    /**
+     * Label contenente la profondità selezionata.
+     */
     @FXML
     private Label labelprofondita;
+    /**
+     * RadioButton indicante la scelta di SingleLinkDistance.
+     */
     @FXML
     private RadioButton radiosingle;
+    /**
+     * RadioButton indicante la scelta di AverageLinkDistance.
+     */
     @FXML
     private RadioButton radioaverage;
+    /**
+     * InputBox del nome del file.
+     */
     @FXML
     private TextField namefilefield;
+    /**
+     * Label contenente il messaggio di avvenuta accettazione e salvataggio.
+     */
     @FXML
     private Label filesave;
+    /**
+     * TextArea contenete la risposta del server.
+     */
     @FXML
     private TextArea dataarea;
+    /**
+     * Button di invio dei dati.
+     */
     @FXML
     private Button sendbtn;
+    /**
+     * button di controllo del nome del file.
+     */
     @FXML
     private Button chkbutton;
+    /**
+     * Label contenente il titolo della scena.
+     */
     @FXML
     private Label titlefield;
-
+    /**
+     * Scroll della TextArea.
+     */
     private ScrollPane scrollpane;
+    /**
+     * booleano indicante la disponibilità del filename inserito.
+     */
     private boolean sentinella = false;
-    private int cont = 0;
+    /**
+     * Pattern che il nome del file deve rispettare per essere accettato.
+     */
     private final String PATTERN_FILE = "\\b\\w+\\.dat\\b";
-
-
-    public void mostrareProfondita (MouseEvent event){
+    /**
+     * Metodo che rende visibile il Label contenente la profondità selezionata.
+     */
+    public void mostrareProfondita (){
         labelprofondita.setVisible(true);
     }
-
+    /**
+     * Metodo che viene eseguito al caricamento della scena
+     * che possiede il controller ControllerCaricaDaDatabase.
+     * Si occupa di disabilitare il bottone di invio e i vari label di informazione,
+     * inoltre si occupa di mostrare la profondità selezionata nel label profondità.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         sendbtn.setDisable(true);
         labelprofondita.setVisible(false);
         filesave.setVisible(false);
-        sliderprofondita.valueProperty().addListener(new ChangeListener<Number>() {
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                labelprofondita.setText((int)(sliderprofondita.getValue())+"");
-            }
-        });
+        sliderprofondita.valueProperty().addListener((_, _, _) -> labelprofondita.setText((int)(sliderprofondita.getValue())+""));
     }
-
-    public void setRadioaverage(ActionEvent event) {
+    /**
+     * Metodo che imposta il RadioButton radioaverage a false.
+     */
+    public void setRadioaverage() {
         radioaverage.setSelected(false);
     }
-
-    public void setRadiosingle(ActionEvent event) {
+    /**
+     * Metodo che imposta il RadioButton radiosingle a false.
+     */
+    public void setRadiosingle() {
         radiosingle.setSelected(false);
     }
-
-    public void send (ActionEvent event){
+    /**
+     * Metodo che invia i dati di profondità, distanza da calcolare e nome file al server,
+     * inoltre provvede a ricevere i dati calcolati e a mostrarli in una TextArea.
+     */
+    public void send (){
         int depth = (int)sliderprofondita.getValue();
         int scelta;
         boolean single = radiosingle.isSelected();
         boolean average = radioaverage.isSelected();
         String filename = namefilefield.getText();
-        if (cont > 0) {
-            if (sentinella) {
-                if (single){
-                    scelta = 1;
-                    eseguiMine(depth,scelta,filename);
+        if (sentinella) {
+            if (single){
+                scelta = 1;
+                eseguiMine(depth,scelta,filename);
 
-                } else if (average){
-                    scelta = 2;
-                    eseguiMine(depth,scelta,filename);
-                }
-            }else {
-                mostraMessErrore("Il file esiste già");
+            } else if (average){
+                scelta = 2;
+                eseguiMine(depth,scelta,filename);
             }
         }else {
-            mostraMessErrore("Controlla l'esistenza del file");
+            mostraMessErrore("Il file esiste già");
         }
 
     }
-
+    /**
+     * Metodo che si occupa di mostrare un messaggio di errore personalizzato nel Label di errore.
+     * @param messErrore messaggio di errore.
+     */
     public void mostraMessErrore(String messErrore){
         PauseTransition pause = new PauseTransition(Duration.seconds(3));
         pause.setOnFinished(event -> {
@@ -106,7 +148,12 @@ public class ControllerCaricaDaDatabase implements Initializable {
         filesave.setVisible(true);
         pause.play();
     }
-
+    /**
+     * Metodo che invia i dati di profondità, scelta di distanza da calcolare e nome file al server.
+     * @param depth profondità del dendogramma.
+     * @param scelta scelta della distanza da calcolare
+     * @param filename nome del file scelto.
+     */
     public void eseguiMine (int depth, int scelta, String filename){
         String res = "";
         try {
@@ -121,13 +168,18 @@ public class ControllerCaricaDaDatabase implements Initializable {
             throw new RuntimeException(e);
         }
     }
-
+    /**
+     * Metodo che crea lo scroller della TextArea.
+     */
     public void creaScroller() {
         scrollpane = new ScrollPane();
         scrollpane.setContent(dataarea);
         scrollpane.setLayoutX(579);
         scrollpane.setLayoutY(136);
     }
+    /**
+     * Metodo che spegne tutti i componenti della scena.
+     */
     public void spegniComponenti(){
         sliderprofondita.setDisable(true);
         radioaverage.setDisable(true);
@@ -136,6 +188,10 @@ public class ControllerCaricaDaDatabase implements Initializable {
         sendbtn.setDisable(true);
         chkbutton.setDisable(true);
     }
+    /**
+     * Metodo che mostra un messaggio di informazione nel label di informazione.
+     * @param s messaggio da mostrare.
+     */
     public void mostraMess(String s) {
         PauseTransition tempo = new PauseTransition(Duration.seconds(3));
         filesave.setText(s);
@@ -144,12 +200,16 @@ public class ControllerCaricaDaDatabase implements Initializable {
         tempo.setOnFinished( e -> filesave.setVisible(false));
         tempo.play();
     }
+    /**
+     * Metodo che controlla se il nome del file inserito è gia presente.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public void controllaFile() throws IOException, ClassNotFoundException {
 
         String filename = namefilefield.getText();
         System.out.println(filename);
         if (filename.length()<=10 && filename.matches(PATTERN_FILE)) {
-            cont++;
             client.getOut().writeObject(filename);
             String message = (String) client.getIn().readObject();
             if (message.equals("File non esiste")) {
@@ -168,6 +228,4 @@ public class ControllerCaricaDaDatabase implements Initializable {
             sentinella = false;
         }
     }
-
-
 }

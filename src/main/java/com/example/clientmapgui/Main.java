@@ -9,6 +9,12 @@ import java.io.IOException;
 
 public class Main extends Application {
 
+    /**
+     * Metodo che effettua il setup della finestra sulla base di
+     * scena ottenuta da file fxml.
+     * @param stage finestra in cui mostrare la scena.
+     * @throws IOException
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ConnessioneServer.fxml"));
@@ -19,6 +25,10 @@ public class Main extends Application {
         stage.show();
     }
 
+    /**
+     * Entrypoint dell'applicazione
+     * @param args argomenti presi da cli
+     */
     public static void main(String[] args) {
         launch();
     }

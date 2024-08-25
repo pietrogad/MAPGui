@@ -1,6 +1,5 @@
 package com.example.clientmapgui;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -15,6 +14,12 @@ public class ControllerControllo {
     private static Scene scene;
     private static FXMLLoader root;
 
+    /**
+     * Metodo che cambia e inizializza una nuova scena.
+     * @param event evento che innesca lo switch.
+     * @param s nome della scena da caricare.
+     * @throws IOException
+     */
     public static void switchScene(ActionEvent event , String s) throws IOException {
         root = new FXMLLoader(Main.class.getResource(s + ".fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -22,7 +27,13 @@ public class ControllerControllo {
         stage.setScene(scene);
         stage.show();
     }
-
+    /**
+     * Metodo che cambia e inizializza una nuova scena ed imposta un nuovo titolo alla finestra.
+     * @param event evento che innesca lo switch.
+     * @param s nome della scena da caricare.
+     * @param s1 titolo da impostare.
+     * @throws IOException
+     */
     public static void switchScene(ActionEvent event, String s, String s1) throws IOException {
         root = new FXMLLoader(Main.class.getResource(s + ".fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
