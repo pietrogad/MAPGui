@@ -7,15 +7,25 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import static com.example.clientmapgui.ControllerConnServer.client;
+
 public class Client {
 
     /**
-     * @param args
+     * Stream di output
      */
     private ObjectOutputStream out;
+    /**
+     * Stream di input.
+     */
     private ObjectInputStream in ; // stream con richieste del client
 
-
+    /**
+     * Costruttore della classe Client.
+     * @param ip IP del server.
+     * @param port Porta del server.
+     * @throws IOException
+     */
     public Client (String ip, int port) throws IOException {
         InetAddress addr = InetAddress.getByName(ip); //ip
         System.out.println("addr = " + addr);
@@ -26,13 +36,27 @@ public class Client {
         in = new ObjectInputStream(socket.getInputStream());	; // stream con richieste del client
     }
 
+    /**
+     * Metodo getter dello stream di input.
+     * @return
+     */
     public ObjectInputStream getIn() {
         return in;
     }
+    /**
+     * Metodo getter dello stream di output.
+     * @return
+     */
     public ObjectOutputStream getOut() {
         return out;
     }
-
+    /**
+     * Metodo che invia il nome della tabella selezionata al server.
+     * @param s nome della tabella.
+     * @return risposta del server.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public String loadDataOnServer(String s) throws IOException, ClassNotFoundException {
         String tableName = s;
         out.writeObject(0);
@@ -41,10 +65,16 @@ public class Client {
         return risposta;
     }
 
+    /**
+     * Metodo che carica le informazioni del calcolo del dendogramma da file.
+     * @param file file da cui ricavare le informazioni.
+     * @return risposta del server.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     String loadDedrogramFromFileOnServer(String file) throws IOException, ClassNotFoundException {
         String fileName = file;
         String message;
-        //out.writeObject(1);
         out.writeObject(fileName);
         String risposta= (String) (in.readObject());
         if(risposta.equals("OK")){
@@ -55,7 +85,15 @@ public class Client {
             return risposta; // stampo il messaggio di errore
         }
     }
-
+    /**
+     *
+     * @param profondita profondità del dendogramma.
+     * @param scelta distanza da calcolare scelta.
+     * @param nomefile nome del file.
+     * @return risposta del server.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     String mineDedrogramOnServer(int profondita , int scelta , String nomefile) throws IOException, ClassNotFoundException {
         String message = "";
         //out.writeObject(2);
@@ -76,9 +114,35 @@ public class Client {
             return risposta; // stampo il messaggio di errore
     }
 
+    /**
+     * Metodo che recupera il nomi delle tabelle/nomi dei file dal server.
+     * @return messaggio del server.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public ArrayList<String> getData() throws IOException, ClassNotFoundException {
         Object object = in.readObject();
         ArrayList<String> lista = (ArrayList<String>) object;
         return lista;
+    }
+    /**
+     * Metodo che crea una table sul DB e la popola sulla base di ciò che è stato inserito all'interno delle colonne.
+     * @param q1 query di creazione della table.
+     * @param q2 query di popolamento della tabella.
+     * @param tbName nome della tabella.
+     * @return messaggio del server.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    public String createTable(String q1, String q2, String tbName) throws IOException, ClassNotFoundException {
+        String tableName = tbName;
+        String query1 = q1;
+        String query2 = q2;
+        String msg;
+        client.getOut().writeObject(tableName);
+        client.getOut().writeObject(query1);
+        client.getOut().writeObject(query2);
+        msg = (String) client.getIn().readObject();
+        return msg;
     }
 }
