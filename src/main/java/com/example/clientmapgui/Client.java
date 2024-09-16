@@ -18,7 +18,7 @@ public class Client {
     /**
      * Stream di input.
      */
-    private ObjectInputStream in ; // stream con richieste del client
+    private ObjectInputStream in ;
 
     /**
      * Costruttore della classe Client.
@@ -27,13 +27,13 @@ public class Client {
      * @throws IOException
      */
     public Client (String ip, int port) throws IOException {
-        InetAddress addr = InetAddress.getByName(ip); //ip
+        InetAddress addr = InetAddress.getByName(ip);
         System.out.println("addr = " + addr);
-        Socket socket = new Socket(addr, port); //Port
+        Socket socket = new Socket(addr, port);
         System.out.println(socket);
 
         out = new ObjectOutputStream(socket.getOutputStream());
-        in = new ObjectInputStream(socket.getInputStream());	; // stream con richieste del client
+        in = new ObjectInputStream(socket.getInputStream());
     }
 
     /**
@@ -72,17 +72,17 @@ public class Client {
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    String loadDedrogramFromFileOnServer(String file) throws IOException, ClassNotFoundException {
+    public String loadDedrogramFromFileOnServer(String file) throws IOException, ClassNotFoundException {
         String fileName = file;
         String message;
         out.writeObject(fileName);
         String risposta= (String) (in.readObject());
         if(risposta.equals("OK")){
-            message = (String) in.readObject();// stampo il dendrogramma che il server mi sta inviando
+            message = (String) in.readObject(); // stampo il dendrogramma che il server mi sta inviando
             return message;
         }
         else{
-            return risposta; // stampo il messaggio di errore
+            return risposta;
         }
     }
     /**
@@ -94,9 +94,8 @@ public class Client {
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    String mineDedrogramOnServer(int profondita , int scelta , String nomefile) throws IOException, ClassNotFoundException {
+    public String mineDedrogramOnServer(int profondita , int scelta , String nomefile) throws IOException, ClassNotFoundException {
         String message = "";
-        //out.writeObject(2);
         int depth = profondita;
         out.writeObject(depth);
         int dType=-1;
@@ -111,7 +110,7 @@ public class Client {
             return message;
         }
         else
-            return risposta; // stampo il messaggio di errore
+            return risposta;
     }
 
     /**
