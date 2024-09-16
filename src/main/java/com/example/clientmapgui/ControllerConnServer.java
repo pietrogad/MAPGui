@@ -13,6 +13,9 @@ import java.util.ResourceBundle;
 
 import static com.example.clientmapgui.ControllerControllo.switchScene;
 
+/**
+ * Controller della pagina che consente di inserire i dati per il collegamento col server.
+ */
 public class ControllerConnServer implements Initializable {
     /**
      * inputbox dell'indirizzo IP.

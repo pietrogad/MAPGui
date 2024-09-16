@@ -9,6 +9,9 @@ import java.util.ArrayList;
 
 import static com.example.clientmapgui.ControllerConnServer.client;
 
+/**
+ * Classe che gestisce la comunicazione tra client e server.
+ */
 public class Client {
 
     /**
@@ -38,14 +41,14 @@ public class Client {
 
     /**
      * Metodo getter dello stream di input.
-     * @return
+     * @return stream di input.
      */
     public ObjectInputStream getIn() {
         return in;
     }
     /**
      * Metodo getter dello stream di output.
-     * @return
+     * @return stream di output.
      */
     public ObjectOutputStream getOut() {
         return out;
@@ -86,7 +89,7 @@ public class Client {
         }
     }
     /**
-     *
+     * Metodo che invia i dati necessari al calcolo del dendogramma al server.
      * @param profondita profondità del dendogramma.
      * @param scelta distanza da calcolare scelta.
      * @param nomefile nome del file.
@@ -126,7 +129,7 @@ public class Client {
     }
     /**
      * Metodo che crea una table sul DB e la popola sulla base di ciò che è stato inserito all'interno delle colonne.
-     * @param q1 query di creazione della table.
+     * @param q1 query di creazione della tabella.
      * @param q2 query di popolamento della tabella.
      * @param tbName nome della tabella.
      * @return messaggio del server.

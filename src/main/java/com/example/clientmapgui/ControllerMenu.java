@@ -9,6 +9,9 @@ import java.io.IOException;
 import static com.example.clientmapgui.ControllerConnServer.client;
 import static com.example.clientmapgui.ControllerControllo.switchScene;
 
+/**
+ * Controller della pagina che consente di scegliere tra caricare da file o da database.
+ */
 public class ControllerMenu {
     /**
      * RadioButton indicante l'opzioni di calcolo dal database.

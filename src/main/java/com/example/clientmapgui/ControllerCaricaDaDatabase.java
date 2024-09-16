@@ -13,6 +13,10 @@ import java.util.ResourceBundle;
 
 import static com.example.clientmapgui.ControllerConnServer.client;
 
+/**
+ * Controller della pagina che consente
+ * di scegliere le impostrazioni per il calcolo del dendogramma.
+ */
 public class ControllerCaricaDaDatabase implements Initializable {
     /**
      * Slider indicante la profondità da calcolare.

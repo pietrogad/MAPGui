@@ -20,6 +20,9 @@ import java.util.ResourceBundle;
 import static com.example.clientmapgui.ControllerConnServer.client;
 import static com.example.clientmapgui.ControllerControllo.switchScene;
 
+/**
+ * Controller della pagina che consente di creare una nuova tabella nel database.
+ */
 public class ControllerSceltaCreazione implements Initializable {
     /**
      * inputbox dell'elemento da aggiungere alla colonna.
@@ -269,7 +272,7 @@ public class ControllerSceltaCreazione implements Initializable {
         pause.play();
     }
     /**
-     * Metodo che invia le query ai client e
+     * Metodo che invia le query al server e
      * cambia la scena impostando il nome della tabella come nome della finestra.
      * @param event evento che innesca il metodo.
      * @param s nome della tabella da passare allo switch

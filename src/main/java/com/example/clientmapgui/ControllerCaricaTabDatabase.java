@@ -17,7 +17,9 @@ import java.util.ResourceBundle;
 import static com.example.clientmapgui.ControllerControllo.switchScene;
 import static com.example.clientmapgui.ControllerConnServer.client;
 
-
+/**
+ * Controller della pagina che consente di scegliere tra una delle tabelle del database già esistenti.
+ */
 public class ControllerCaricaTabDatabase implements Initializable {
     /**
      * Lista contenente i nomi delle tabelle dei database.

@@ -14,6 +14,9 @@ import java.util.ResourceBundle;
 
 import static com.example.clientmapgui.ControllerConnServer.client;
 
+/**
+ * Controller della pagina che consente di scegliere il file da importare.
+ */
 public class ControllerCaricaDaFile implements Initializable {
     /**
      * Lista selezionabile contenente il nome dei file.

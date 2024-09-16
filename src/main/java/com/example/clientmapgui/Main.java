@@ -7,6 +7,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Classe che contiene il punto di accesso dell'applicazione.
+ */
 public class Main extends Application {
 
     /**
@@ -26,8 +29,8 @@ public class Main extends Application {
     }
 
     /**
-     * Entrypoint dell'applicazione
-     * @param args argomenti presi da cli
+     * Entrypoint dell'applicazione.
+     * @param args argomenti presi da cli.
      */
     public static void main(String[] args) {
         launch();

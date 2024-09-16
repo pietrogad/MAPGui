@@ -9,6 +9,10 @@ import java.io.IOException;
 import static com.example.clientmapgui.ControllerConnServer.client;
 import static com.example.clientmapgui.ControllerControllo.switchScene;
 
+/**
+ * Controller della pagina che gestisce la scelta dell'utente
+ * tra creazione o importazione di una tabella.
+ */
 public class ControllerSceltaTabDatabase {
     /**
      * RadioButton indicante l'opzioni di creazione della tabella.

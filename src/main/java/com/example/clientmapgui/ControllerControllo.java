@@ -8,6 +8,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Classe general-purpose usata come supporto ad altri controller.
+ */
 public class ControllerControllo {
 
     private static Stage stage;

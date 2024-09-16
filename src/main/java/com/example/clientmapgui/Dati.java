@@ -5,6 +5,11 @@ package com.example.clientmapgui;
  */
 public class Dati {
     private Double dato;
+
+    /**
+     * Costruttore della classe Dato.
+     * @param dato valore reale da assegnare al dato in Dati
+     */
     public Dati(double dato) {
         this.dato = dato;
     }
@@ -27,7 +32,7 @@ public class Dati {
 
     /**
      * Ovveride del metodo toString
-     * @return dato in stringa.
+     * @return dato sottoforma di stringa.
      */
     @Override
     public String toString() {
