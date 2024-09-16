@@ -169,7 +169,7 @@ public class ControllerSceltaCreazione implements Initializable {
      */
     public void setBtncolumn() {
         String oldnomecolonna = btncolumn.getText();
-        int oldindicecolonna = Integer.parseInt(oldnomecolonna.substring(1)); //
+        int oldindicecolonna = Integer.parseInt(oldnomecolonna.substring(1));
         int newindicecolonna = oldindicecolonna + 1;
         if(oldindicecolonna == (Integer.parseInt(nrocolumn.getText())-1)){
             newindicecolonna = 0;
@@ -242,15 +242,9 @@ public class ControllerSceltaCreazione implements Initializable {
         }
         query2.append(";");
 
-        /*System.out.println(query1);
-        System.out.println(query2);
-        System.out.println(tablename);*/
-
         try {
             msg = client.createTable(query1.toString(),query2.toString(),tablename);
             if (msg.equals("OK")) {
-                /*client.getOut().writeObject(0);
-                switchScene(event,"menu");*/
                 finalizza(event, tablename);
             } else {
                 mostraMessErrore(msg);
