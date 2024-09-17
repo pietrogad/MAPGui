@@ -1,5 +1,7 @@
 package com.example.clientmapgui;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -8,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -75,6 +78,11 @@ public class ControllerCaricaTabDatabase implements Initializable {
      * @param event evento che innesca il metodo.
      */
     public void getTable (ActionEvent event) {
+        PauseTransition pause = new PauseTransition(Duration.seconds(4));
+        pause.setOnFinished(e -> {
+            errorfield.setVisible(false);
+            Platform.exit();
+        });
         String tablename = tablelist.getSelectionModel().getSelectedItem();
         try {
             message = client.loadDataOnServer(tablename);
@@ -83,6 +91,7 @@ public class ControllerCaricaTabDatabase implements Initializable {
             } else {
                 errorfield.setVisible(true);
                 errorfield.setText(message);
+                pause.play();
             }
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
