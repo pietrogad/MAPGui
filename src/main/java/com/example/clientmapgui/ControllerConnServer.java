@@ -36,10 +36,6 @@ public class ControllerConnServer implements Initializable {
     @FXML
     private Label messlabel;
     /**
-     * Pattern che l'indirizzo IP inserito deve rispettare per essere accettato.
-     */
-    private final String PATTERN_IP = "\\b((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\\b";
-    /**
      * Bottone di connessione al server.
      */
     @FXML
@@ -56,17 +52,15 @@ public class ControllerConnServer implements Initializable {
     public void connectServer(ActionEvent event) {
             String ip = ipfield.getText();
             int port = Integer.parseInt(portfield.getText());
-            if (ip.matches(PATTERN_IP) && portfield.getText().matches(PATTERN_PORT)) {
+            if (portfield.getText().matches(PATTERN_PORT)) {
                 try {
                     client = new Client(ip,port);
                     switchScene(event, "SceltaTabDatabase");
                 } catch (IOException e) {
-                    System.out.println(e);
+                    stampaErrore("Connessione rifiutata");
                 }
             } else {
-                messlabel.setTextFill(Color.RED);
-                messlabel.setText("IP non valido\no porta non valida");
-                messlabel.setVisible(true);
+                stampaErrore("IP non valido\no porta non valida");
             }
 
     }
@@ -90,5 +84,11 @@ public class ControllerConnServer implements Initializable {
         };
         ipfield.textProperty().addListener(textListener);
         portfield.textProperty().addListener(textListener);
+    }
+
+    public void stampaErrore(String msg) {
+        messlabel.setTextFill(Color.RED);
+        messlabel.setText(msg);
+        messlabel.setVisible(true);
     }
 }
