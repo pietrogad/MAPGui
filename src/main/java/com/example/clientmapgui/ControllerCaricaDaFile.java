@@ -73,7 +73,7 @@ public class ControllerCaricaDaFile implements Initializable {
         try {
             list = client.getData();
             listfilename.getItems().addAll(list);
-            listfilename.getSelectionModel().selectedItemProperty().addListener((_, _, _) -> sendfilebtn.setDisable(false));
+            listfilename.getSelectionModel().selectedItemProperty().addListener((arg, oldVal, newVal) -> sendfilebtn.setDisable(false));
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

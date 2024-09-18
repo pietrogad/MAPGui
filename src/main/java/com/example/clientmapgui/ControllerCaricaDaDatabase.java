@@ -99,7 +99,7 @@ public class ControllerCaricaDaDatabase implements Initializable {
         sendbtn.setDisable(true);
         labelprofondita.setVisible(false);
         filesave.setVisible(false);
-        sliderprofondita.valueProperty().addListener((_, _, _) -> labelprofondita.setText((int)(sliderprofondita.getValue())+""));
+        sliderprofondita.valueProperty().addListener((arg, oldVal, newVal) -> labelprofondita.setText((int)(sliderprofondita.getValue())+""));
     }
     /**
      * Metodo che imposta il RadioButton radioaverage a false.
