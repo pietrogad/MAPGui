@@ -123,19 +123,12 @@ public class ControllerSceltaCreazione implements Initializable {
     public void aggDatoColonna(){
         ObservableList<Dati> temp;
         int indicecolonna = Integer.parseInt(btncolumn.getText().substring(1)); //mi da il numero di colonna
-        System.out.println("Indice colonna :" + indicecolonna);
         if (elmtable.getText().matches(PATTERN_INPUT_DATI)){
             Dati valore = new Dati(Double.parseDouble(elmtable.getText()));
             temp = valoritab.get(indicecolonna);
             temp.add(valore);
             grandezze.set(indicecolonna, temp.size());
             tabpreview.setItems(temp);
-            for(ObservableList<Dati> list : valoritab){
-                System.out.println("Lista: " + list.toString());
-            }
-            for(Integer gr : grandezze){
-                System.out.println("Grandezza:" + gr.toString());
-            }
             controllaGrandezza();
             impostaStopBtn();
         } else {
