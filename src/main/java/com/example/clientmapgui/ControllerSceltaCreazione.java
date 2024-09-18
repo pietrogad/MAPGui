@@ -223,7 +223,7 @@ public class ControllerSceltaCreazione implements Initializable {
         StringBuilder query1 = new StringBuilder("CREATE TABLE IF NOT EXISTS ").append(tablename).append(" (");
         StringBuilder query2 = new StringBuilder("INSERT INTO ").append(tablename).append(" VALUES ");
         for (int i = 0; i < valoritab.size(); i++) {
-            query1.append("C").append(i).append(" DOUBLE");
+            query1.append("C").append(i).append(" FLOAT");
             if (i < valoritab.size() - 1) {
                 query1.append(", ");
             }
