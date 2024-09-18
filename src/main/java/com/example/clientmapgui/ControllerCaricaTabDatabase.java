@@ -87,7 +87,7 @@ public class ControllerCaricaTabDatabase implements Initializable {
         try {
             message = client.loadDataOnServer(tablename);
             if (message.equals("OK")) {
-                switchScene(event, "menu", tablename);
+                switchScene(event, "Menu", tablename);
             } else {
                 errorfield.setVisible(true);
                 errorfield.setText(message);
