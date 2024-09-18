@@ -3,6 +3,7 @@ package com.example.clientmapgui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
@@ -36,6 +37,11 @@ public class ControllerConnServer implements Initializable {
      * Pattern che l'indirizzo IP inserito deve rispettare per essere accettato.
      */
     private final String PATTERN_IP = "\\b((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\\b";
+    /**
+     * Bottone di connessione al server.
+     */
+    @FXML
+    Button connectServer;
     /**
      * Pattern che la porta inserita deve rispettare per essere accettata.
      */
@@ -72,5 +78,7 @@ public class ControllerConnServer implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         messlabel.setVisible(false);
+        connectServer.setDisable(true);
+        ipfield.textProperty().addListener((_, _, newValue) -> connectServer.setDisable(newValue.trim().isEmpty()));
     }
 }
