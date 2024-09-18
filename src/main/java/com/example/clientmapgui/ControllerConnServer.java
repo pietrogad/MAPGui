@@ -1,5 +1,7 @@
 package com.example.clientmapgui;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -79,6 +81,14 @@ public class ControllerConnServer implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         messlabel.setVisible(false);
         connectServer.setDisable(true);
-        ipfield.textProperty().addListener((_, _, newValue) -> connectServer.setDisable(newValue.trim().isEmpty()));
+        ChangeListener<String> textListener = new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                boolean disableButton = ipfield.getText().trim().isEmpty() || portfield.getText().trim().isEmpty();
+                connectServer.setDisable(disableButton);
+            }
+        };
+        ipfield.textProperty().addListener(textListener);
+        portfield.textProperty().addListener(textListener);
     }
 }
