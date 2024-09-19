@@ -206,7 +206,7 @@ public class ControllerSceltaCreazione implements Initializable {
      * Metodo che crea una nuova tabella e, sulla base di ciò che è stato inserito nelle colonne, la popola.
      * @param event evento che innesca il metodo.
      */
-    public void sendQuery(ActionEvent event) {
+    public void sendQuery(ActionEvent event) throws IOException {
         Random rand  = new Random();
         int n = rand.nextInt(MAX_BOUND);
         int numRows = valoritab.get(0).size();
@@ -246,7 +246,7 @@ public class ControllerSceltaCreazione implements Initializable {
                 mostraMessErrore(msg);
             }
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println(e);
+            switchScene(event,"ConnessionePersa");
         }
     }
     /**
@@ -277,7 +277,11 @@ public class ControllerSceltaCreazione implements Initializable {
                 client.getOut().writeObject(0);
                 switchScene(event,"Menu", s);
             } catch (IOException ex) {
-                System.out.println(ex);
+                try {
+                    switchScene(event,"ConnessionePersa");
+                } catch (IOException exc) {
+                    throw new RuntimeException(exc);
+                }
             }
         });
         pause.play();

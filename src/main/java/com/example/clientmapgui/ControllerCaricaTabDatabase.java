@@ -69,7 +69,11 @@ public class ControllerCaricaTabDatabase implements Initializable {
                 }
             });
         } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            try {
+                switchScene(new ActionEvent(), "ConnessionePersa");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 
@@ -77,7 +81,7 @@ public class ControllerCaricaTabDatabase implements Initializable {
      * Metodo che invia il nome della tabella selezionata al server.
      * @param event evento che innesca il metodo.
      */
-    public void getTable (ActionEvent event) {
+    public void getTable (ActionEvent event) throws IOException {
         PauseTransition pause = new PauseTransition(Duration.seconds(4));
         pause.setOnFinished(e -> {
             errorfield.setVisible(false);
@@ -94,7 +98,7 @@ public class ControllerCaricaTabDatabase implements Initializable {
                 pause.play();
             }
         } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            switchScene(event,"ConnessionePersa");
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.clientmapgui;
 
 import javafx.animation.PauseTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -12,6 +13,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import static com.example.clientmapgui.ControllerConnServer.client;
+import static com.example.clientmapgui.ControllerControllo.switchScene;
 
 /**
  * Controller della pagina che consente
@@ -99,7 +101,7 @@ public class ControllerCaricaDaDatabase implements Initializable {
         sendbtn.setDisable(true);
         labelprofondita.setVisible(false);
         filesave.setVisible(false);
-        sliderprofondita.valueProperty().addListener((arg, oldVal, newVal) -> labelprofondita.setText((int)(sliderprofondita.getValue())+""));
+        sliderprofondita.valueProperty().addListener((_, _, _) -> labelprofondita.setText((int)(sliderprofondita.getValue())+""));
     }
     /**
      * Metodo che imposta il RadioButton radioaverage a false.
@@ -117,7 +119,7 @@ public class ControllerCaricaDaDatabase implements Initializable {
      * Metodo che invia i dati di profondità, distanza da calcolare e nome file al server,
      * inoltre provvede a ricevere i dati calcolati e a mostrarli in una TextArea.
      */
-    public void send (){
+    public void send (ActionEvent event) throws IOException {
         int depth = (int)sliderprofondita.getValue();
         int scelta;
         boolean single = radiosingle.isSelected();
@@ -126,11 +128,11 @@ public class ControllerCaricaDaDatabase implements Initializable {
         if (sentinella) {
             if (single){
                 scelta = 1;
-                eseguiMine(depth,scelta,filename);
+                eseguiMine(event,depth,scelta,filename);
 
             } else if (average){
                 scelta = 2;
-                eseguiMine(depth,scelta,filename);
+                eseguiMine(event,depth,scelta,filename);
             }
         }else {
             mostraMessErrore("Il file esiste già");
@@ -158,7 +160,7 @@ public class ControllerCaricaDaDatabase implements Initializable {
      * @param scelta scelta della distanza da calcolare
      * @param filename nome del file scelto.
      */
-    public void eseguiMine (int depth, int scelta, String filename){
+    public void eseguiMine (ActionEvent event,int depth, int scelta, String filename) throws IOException {
         String res = "";
         try {
             res = client.mineDendrogramOnServer(depth,scelta,filename);
@@ -169,7 +171,7 @@ public class ControllerCaricaDaDatabase implements Initializable {
             dataarea.setText(res);
             spegniComponenti();
         } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            switchScene(event,"ConnessionePersa");
         }
     }
     /**
@@ -209,27 +211,30 @@ public class ControllerCaricaDaDatabase implements Initializable {
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public void controllaFile() throws IOException, ClassNotFoundException {
+    public void controllaFile(ActionEvent event) throws IOException, ClassNotFoundException {
+        try {
+            String filename = namefilefield.getText();
+            System.out.println(filename);
+            if (filename.length()<=10 && filename.matches(PATTERN_FILE)) {
+                client.getOut().writeObject(filename);
+                String message = (String) client.getIn().readObject();
+                if (message.equals("File non esiste")) {
+                    sendbtn.setDisable(false);
+                    sentinella = true;
+                    chkbutton.setDisable(true);
+                    namefilefield.setDisable(true);
+                    mostraMess("il nome file è stato accettato");
+                }else {
+                    mostraMessErrore(message);
+                    sentinella = false;
 
-        String filename = namefilefield.getText();
-        System.out.println(filename);
-        if (filename.length()<=10 && filename.matches(PATTERN_FILE)) {
-            client.getOut().writeObject(filename);
-            String message = (String) client.getIn().readObject();
-            if (message.equals("File non esiste")) {
-                sendbtn.setDisable(false);
-                sentinella = true;
-                chkbutton.setDisable(true);
-                namefilefield.setDisable(true);
-                mostraMess("il nome file è stato accettato");
-            }else {
-                mostraMessErrore(message);
+                }
+            } else {
+                mostraMessErrore("la lunghezza del nome è maggiore di 10\no non è nel formato corretto (filename.dat)");
                 sentinella = false;
-
             }
-        } else {
-            mostraMessErrore("la lunghezza del nome è maggiore di 10\no non è nel formato corretto (filename.dat)");
-            sentinella = false;
+        } catch (IOException | ClassNotFoundException e) {
+            switchScene(event, "ConnessionePersa");
         }
     }
 }

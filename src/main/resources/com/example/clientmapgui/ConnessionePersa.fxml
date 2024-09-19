@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.clientmapgui.ControllerConnessionePersa">
+   <children>
+      <Label alignment="CENTER" layoutX="125.0" layoutY="192.0" prefHeight="17.0" prefWidth="349.0" text="Hai perso la connessione con il server" textAlignment="CENTER" textFill="#ff0101">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="136.0" layoutY="155.0" prefHeight="17.0" prefWidth="328.0" text="Esecuzione interrotta" textAlignment="CENTER" textFill="RED">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

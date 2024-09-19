@@ -31,10 +31,7 @@ public class Client {
      */
     public Client (String ip, int port) throws IOException {
         InetAddress addr = InetAddress.getByName(ip);
-
         Socket socket = new Socket(addr, port);
-
-
         out = new ObjectOutputStream(socket.getOutputStream());
         in = new ObjectInputStream(socket.getInputStream());
     }

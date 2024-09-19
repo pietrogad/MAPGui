@@ -1,6 +1,7 @@
 package com.example.clientmapgui;
 
 import javafx.animation.PauseTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static com.example.clientmapgui.ControllerConnServer.client;
+import static com.example.clientmapgui.ControllerControllo.switchScene;
 
 /**
  * Controller della pagina che consente di scegliere il file da importare.
@@ -73,9 +75,13 @@ public class ControllerCaricaDaFile implements Initializable {
         try {
             list = client.getData();
             listfilename.getItems().addAll(list);
-            listfilename.getSelectionModel().selectedItemProperty().addListener((arg, oldVal, newVal) -> sendfilebtn.setDisable(false));
+            listfilename.getSelectionModel().selectedItemProperty().addListener((_, _, _) -> sendfilebtn.setDisable(false));
         } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            try {
+                switchScene(new ActionEvent(), "ConnessionePersa");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
 
     }
@@ -84,7 +90,7 @@ public class ControllerCaricaDaFile implements Initializable {
      * recupera i dati inviati come risposta. I dati ricevuti vengono inseriti all'interno di una TextArea.
      * @throws IOException
      */
-    public void sendFile () throws IOException {
+    public void sendFile (ActionEvent event) throws IOException {
         try {
             nomefile = listfilename.getSelectionModel().getSelectedItem();
             res = client.loadDendrogramFromFileOnServer(nomefile);
@@ -94,8 +100,8 @@ public class ControllerCaricaDaFile implements Initializable {
             areadati.setText(res);
             mostraMess("Il file e' stato caricato correttamente\nProcedere all'altra scheda per visualizzare il risultato");
             spegniComponenti();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+        } catch (IOException | ClassNotFoundException e) {
+            switchScene(event,"ConnessionePersa");
         }
     }
     /**

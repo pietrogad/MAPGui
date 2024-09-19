@@ -31,8 +31,12 @@ public class ControllerSceltaTabDatabase {
      * @throws IOException
      */
     public void switchCrea(ActionEvent event) throws IOException {
-        client.getOut().writeObject(1);
-        switchScene(event,"SceltaCreazione");
+        try {
+            client.getOut().writeObject(1);
+            switchScene(event,"SceltaCreazione");
+        }catch (IOException e){
+            switchScene(event,"ConnessionePersa");
+        }
     }
 
     /**
@@ -41,7 +45,11 @@ public class ControllerSceltaTabDatabase {
      * @throws IOException
      */
     public void switchImporta(ActionEvent event) throws IOException {
-        client.getOut().writeObject(2);
-        switchScene(event,"CaricaTabDatabase");
+        try {
+            client.getOut().writeObject(2);
+            switchScene(event,"CaricaTabDatabase");
+        }catch (IOException e){
+            switchScene(event,"ConnessionePersa");
+        }
     }
 }

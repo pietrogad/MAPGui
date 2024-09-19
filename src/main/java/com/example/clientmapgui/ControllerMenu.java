@@ -29,8 +29,12 @@ public class ControllerMenu {
      * @throws IOException
      */
     public void caricaDaDatabase (ActionEvent event) throws IOException {
-        client.getOut().writeObject(2);
-        switchScene(event,"CaricaDaDatabase");
+        try{
+            client.getOut().writeObject(2);
+            switchScene(event,"CaricaDaDatabase");
+        }catch (IOException e){
+            switchScene(event,"ConnessionePersa");
+        }
     }
     /**
      * Metodo che cambia scena in CaricaDaFile.fxml
@@ -38,7 +42,11 @@ public class ControllerMenu {
      * @throws IOException
      */
     public void caricaDaFile (ActionEvent event) throws IOException {
-        client.getOut().writeObject(1);
-        switchScene(event,"CaricaDaFile");
+        try {
+            client.getOut().writeObject(1);
+            switchScene(event,"CaricaDaFile");
+        }catch (IOException e){
+            switchScene(event,"ConnessionePersa");
+        }
     }
 }
