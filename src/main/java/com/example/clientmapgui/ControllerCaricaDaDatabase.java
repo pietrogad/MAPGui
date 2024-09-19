@@ -118,6 +118,7 @@ public class ControllerCaricaDaDatabase implements Initializable {
     /**
      * Metodo che invia i dati di profondità, distanza da calcolare e nome file al server,
      * inoltre provvede a ricevere i dati calcolati e a mostrarli in una TextArea.
+     * @param event evento che genera l'esecuzione del metodo.
      */
     public void send (ActionEvent event) throws IOException {
         int depth = (int)sliderprofondita.getValue();
@@ -156,6 +157,7 @@ public class ControllerCaricaDaDatabase implements Initializable {
     }
     /**
      * Metodo che invia i dati di profondità, scelta di distanza da calcolare e nome file al server.
+     * @param event evento che genera l'esecuzione del metodo.
      * @param depth profondità del dendogramma.
      * @param scelta scelta della distanza da calcolare
      * @param filename nome del file scelto.
@@ -208,6 +210,7 @@ public class ControllerCaricaDaDatabase implements Initializable {
     }
     /**
      * Metodo che controlla se il nome del file inserito è gia presente.
+     * @param event evento che genera l'esecuzione del metodo.
      * @throws IOException
      * @throws ClassNotFoundException
      */

@@ -86,6 +86,10 @@ public class ControllerConnServer implements Initializable {
         portfield.textProperty().addListener(textListener);
     }
 
+    /**
+     * Metodo che imposta un messaggio all'interno del label di errore.
+     * @param msg messaggio da mostrare.
+     */
     public void stampaErrore(String msg) {
         messlabel.setTextFill(Color.RED);
         messlabel.setText(msg);
