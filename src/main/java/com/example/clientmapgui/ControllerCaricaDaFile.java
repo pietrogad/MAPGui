@@ -88,6 +88,7 @@ public class ControllerCaricaDaFile implements Initializable {
     /**
      * Metodo che invia al server il nome del file e
      * recupera i dati inviati come risposta. I dati ricevuti vengono inseriti all'interno di una TextArea.
+     * @param event evento che genera l'esecuzione del metodo.
      * @throws IOException
      */
     public void sendFile (ActionEvent event) throws IOException {
