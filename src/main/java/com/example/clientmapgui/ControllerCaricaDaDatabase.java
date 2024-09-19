@@ -211,10 +211,10 @@ public class ControllerCaricaDaDatabase implements Initializable {
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public void controllaFile(ActionEvent event) throws IOException, ClassNotFoundException {
+    public void controllaFile(ActionEvent event) throws IOException {
         try {
             String filename = namefilefield.getText();
-            if (filename.length()<=10 && filename.matches(PATTERN_FILE)) {
+            if (filename.split(".dat")[0].length()<=10 && filename.matches(PATTERN_FILE)) {
                 client.getOut().writeObject(filename);
                 String message = (String) client.getIn().readObject();
                 if (message.equals("File non esiste")) {
