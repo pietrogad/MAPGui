@@ -87,7 +87,7 @@ public class ControllerCaricaDaFile implements Initializable {
     public void sendFile () throws IOException {
         try {
             nomefile = listfilename.getSelectionModel().getSelectedItem();
-            res = client.loadDedrogramFromFileOnServer(nomefile);
+            res = client.loadDendrogramFromFileOnServer(nomefile);
             titlefield.setTextFill(Color.GREEN);
             titlefield.setText("Il file " + nomefile + " è stato scelto \u2192");
             creaScroller();

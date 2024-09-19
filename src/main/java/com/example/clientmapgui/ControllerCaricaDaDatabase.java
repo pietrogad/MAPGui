@@ -161,7 +161,7 @@ public class ControllerCaricaDaDatabase implements Initializable {
     public void eseguiMine (int depth, int scelta, String filename){
         String res = "";
         try {
-            res = client.mineDedrogramOnServer(depth,scelta,filename);
+            res = client.mineDendrogramOnServer(depth,scelta,filename);
             mostraMess("Il file e' stato salvato correttamente\nProcedere all'altra scheda per visualizzare il risultato");
             titlefield.setTextFill(Color.GREEN);
             titlefield.setText("I dati calcolati sono disponibili nella scheda successiva \u2192");

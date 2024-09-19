@@ -209,7 +209,7 @@ public class ControllerSceltaCreazione implements Initializable {
     public void sendQuery(ActionEvent event) {
         Random rand  = new Random();
         int n = rand.nextInt(MAX_BOUND);
-        int numRows = valoritab.getFirst().size();
+        int numRows = valoritab.get(0).size();
         String msg;
         String tablename = "table" + n;
         ModificaScena(tablename);
@@ -275,7 +275,7 @@ public class ControllerSceltaCreazione implements Initializable {
         pause.setOnFinished(e -> {
             try {
                 client.getOut().writeObject(0);
-                switchScene(event,"menu", s);
+                switchScene(event,"Menu", s);
             } catch (IOException ex) {
                 System.out.println(ex);
             }

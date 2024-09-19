@@ -31,9 +31,9 @@ public class Client {
      */
     public Client (String ip, int port) throws IOException {
         InetAddress addr = InetAddress.getByName(ip);
-        System.out.println("addr = " + addr);
+
         Socket socket = new Socket(addr, port);
-        System.out.println(socket);
+
 
         out = new ObjectOutputStream(socket.getOutputStream());
         in = new ObjectInputStream(socket.getInputStream());
@@ -75,7 +75,7 @@ public class Client {
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public String loadDedrogramFromFileOnServer(String file) throws IOException, ClassNotFoundException {
+    public String loadDendrogramFromFileOnServer(String file) throws IOException, ClassNotFoundException {
         String fileName = file;
         String message;
         out.writeObject(fileName);
@@ -97,7 +97,7 @@ public class Client {
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public String mineDedrogramOnServer(int profondita , int scelta , String nomefile) throws IOException, ClassNotFoundException {
+    public String mineDendrogramOnServer(int profondita , int scelta , String nomefile) throws IOException, ClassNotFoundException {
         String message = "";
         int depth = profondita;
         out.writeObject(depth);
