@@ -214,7 +214,6 @@ public class ControllerCaricaDaDatabase implements Initializable {
     public void controllaFile(ActionEvent event) throws IOException, ClassNotFoundException {
         try {
             String filename = namefilefield.getText();
-            System.out.println(filename);
             if (filename.length()<=10 && filename.matches(PATTERN_FILE)) {
                 client.getOut().writeObject(filename);
                 String message = (String) client.getIn().readObject();
